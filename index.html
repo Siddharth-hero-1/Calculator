@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta user-scalable=no>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      user-select: none;
+    }
+    
+    body {
+      height: 100vh;
+      width: 100vw;
+      padding: 5px;
+      background: #333;
+      box-sizing: border-box;
+      display: grid;
+      place-items: center;
+    }
+    
+    #calculator {
+      width: 290px;
+      display: flex;
+      flex-direction: column;
+      height: 550px;
+      padding: 5px;
+      background: #FFE5E5;
+      background: url("Siddharth.jpg");
+      background-position: center 0px;
+      background-size: 200px auto;
+      border-radius: 16px;
+      padding: 19px 19px;
+      box-shadow: 0px 0px 7px 7px #FFE5E5
+    }
+    
+    #results {
+      width: 100%;
+      height: 200px;
+      background: rgba(167, 175, 124, .7);
+      line-height: 40px;
+      color: #3a3c2e;
+      color: white;
+      padding: 0px 5px;
+      box-sizing: border-box;
+      border-radius: 0px;
+      box-shadow: inset 0px -6px 1px rgba(0, 0, 0, 0.35), 0px 5px 5px rgba(0, 0, 0, 0.5), 0px 15px 25px rgba(0, 0, 0, 0.35);
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      border-radius: 26px;
+      
+    }
+    
+    #live_re {
+      width: 100%;
+      height: 50px;
+      background: rgba(224, 239, 147, .7);
+      box-shadow: inset 0px -6px 1px rgba(0, 0, 0, 0.35), 0px 5px 5px rgba(0, 0, 0, 0.5), 0px 15px 25px rgba(0, 0, 0, 0.35);
+      border-radius: 0px;
+      margin-top: 10px;
+      line-height: 50px;
+      font-size: 20px;
+      text-align: right;
+      border-radius: 20px;
+      overflow: auto;
+    }
+    
+    #results main {
+      height: 40px;
+      text-align: right;
+      box-shadow: inset 0px 0px 0px black;
+      display: flex;
+      flex-direction: row-reverse;
+      text-shadow: 0px 0px 2px black;
+      
+    }
+    
+    #results main section {
+      display: inline-block;
+      width: 16px;
+      text-align: center;
+      font-size: 26px;
+    }
+    
+    #buttons {
+      margin-top: 14px;
+      display: grid;
+      grid-row-gap: 12px;
+      grid-column-gap: 10px;
+      grid-template-columns: 2.5fr 2.5fr 2.5fr 3fr;
+      
+    }
+    
+    button {
+      height: 45px;
+      border-radius: 0px;
+      color: white;
+      font-size: 1.1rem;
+      background: linear-gradient(#555353, #363535);
+      box-shadow: inset 0px -6px 1px rgba(0, 0, 0, 0.35), 0px 5px 5px rgba(0, 0, 0, 0.5), 0px 15px 25px rgba(0, 0, 0, 0.35);
+      border: none;
+      border-radius: 10px
+    }
+    
+    button:active {
+      box-shadow: inset 2px -2px 1px rgba(0, 0, 0, 0.35), inset 0px 5px 5px rgba(0, 0, 0, 0.5), inset 0px 15px 25px rgba(0, 0, 0, 0.35);
+      color: wheat;
+    }
+    
+    #equal {
+      background: #3240D9;
+      font-size: 40px;
+    }
+    
+    #cut {
+      font-size: 25px;
+      background: #B64A02
+    }
+    
+    #clear {
+      background: #820000
+    }
+    
+    span {
+      display: none;
+    }
+    
+    @media only screen and (min-width:500px) and (max-width:700px) {
+      #calculator {
+        transform: scale(1.4)
+      }
+    }
+    
+    @media only screen and (min-width:700px) and (max-width:900px) {
+      #calculator {
+        transform: scale(1.8)
+      }
+    }
+    
+    @media only screen and (min-width:900px) and (max-width:1100px) {
+      #calculator {
+        transform: scale(2.2);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <span id="result"></span>
+  <section id="calculator">
+    <div id="results"></div>
+    <div id="live_re"></div>
+    
+    <div id="buttons">
+      <button id="clear">Ac</button>
+      <button id="cut">×</button>
+      <button class="point view" id="point">.</button>
+      <button class="sy view" id="d">/</button>
+      <button class="num view" id="n1">1</button>
+      <button class="num view" id="n2">2</button>
+      <button class="num view" id="n3">3</button>
+      
+      <button class="sy view" id="m">*</button>
+      <button class="num view" id="n4">4</button>
+      <button class="num view" id="n5">5</button>
+      <button class="num view" id="n6">6</button>
+      
+      <button class="sy view" id="a">+</button>
+      
+      <button class="num view" id="n7">7</button>
+      <button class="num view" id="n8">8</button>
+      <button class="num view" id="n9">9</button>
+      
+      <button class="sy view" id="s">-</button>
+      <button id="br1" class="sy view">(</button>
+      
+      <button class="num view" id="n0">0</button>
+      <button id="br2" class="br view">)</button>
+      
+      <button id="equal">=</button>
+      
+    </div>
+  </section>
+</body>
+<script>
+  result.innerText = '0';
+  setTimeout(() => {
+    clear.click()
+  }, 1)
+  var view = document.getElementsByClassName('view');
+  var live_re = document.getElementById('live_re');
+  
+  view = Array.from(view);
+  
+  view.forEach((x) => {
+    x.addEventListener('click', () => {
+      result.innerText += x.innerText;
+    })
+  })
+  
+  equal.addEventListener('click', () => {
+    if (result.innerText.slice(-1) == '/' || result.innerText.slice(-1) == '*' || result.innerText.slice(-1) == '+' || result.innerText.slice(-1) == '-') {
+      result.innerText = eval(result.innerText.slice(0, -1))
+    }
+    else {
+      result.innerText = eval(result.innerText)
+      
+    }
+  })
+  
+  clear.addEventListener('click', () => {
+    result.innerText = '0'
+  })
+  
+  cut.addEventListener('click', () => {
+    if (result.innerText != '0') {
+      result.innerText = result.innerText.slice(0, -1)
+    }
+    if (result.innerText == '') {
+      result.innerText = '0'
+    }
+  })
+  
+  
+  
+  // Symbol problem 
+  var sy = document.getElementsByClassName('sy');
+  sy = Array.from(sy);
+  sy.forEach((a) => {
+    
+    a.addEventListener('click', () => {
+      if (result.innerText.charAt(result.innerText.length - 2) == '*' && result.innerText.charAt(result.innerText.length - 3) == '*') {
+        result.innerText = result.innerText.slice(0, -3) + a.innerText
+        
+      }
+      else if (result.innerText.charAt(result.innerText.length - 2) == '+' || result.innerText.charAt(result.innerText.length - 2) == '*' || result.innerText.charAt(result.innerText.length - 2) == '-' || result.innerText.charAt(result.innerText.length - 2) == '/') {
+        result.innerText = result.innerText.slice(0, -2) + a.innerText
+      }
+    })
+    
+  })
+  // Symbol problem 
+  
+  
+  
+  //point problem
+  
+  var point = document.getElementById('point')
+  
+  
+  // Zero problem 
+  
+  var num = document.getElementsByClassName('num');
+  num = Array.from(num);
+  
+  num.forEach((r) => {
+    r.addEventListener('click', () => {
+      
+      if (result.innerText[0] == '0' && result.innerText[1] != '.' && result.innerText[1] != '*' && result.innerText[1] != '/' && result.innerText[1] != '+' && result.innerText[1] != '-') {
+        console.log(777)
+        result.innerText = result.innerText.slice(1, result.innerText.length)
+      }
+      
+      
+    })
+  })
+  
+  
+  var allbuttons = document.getElementsByTagName('button');
+  allbuttons = Array.from(allbuttons)
+  var nzero = document.getElementById('n0');
+  
+  
+  allbuttons.forEach((t) => {
+    
+    t.addEventListener('click', () => {
+      try {
+        
+        if (result.innerText.slice(-1) == '/' || result.innerText.slice(-1) == '*' || result.innerText.slice(-1) == '+' || result.innerText.slice(-1) == '-') {
+          live_re.innerText = eval(result.innerText.slice(0, -1))
+        }
+        else {
+          live_re.innerText = eval(result.innerText)
+          
+        }
+        
+        
+        live_re.style = 'color: white; font-size: 20px';
+      }
+      catch (err) {
+        console.log(err)
+      }
+      
+      if (result.innerText[result.innerText.length - 1] == '/') {
+        nzero.setAttribute('disabled', '');
+        console.log('hhhbbb')
+      }
+      if (result.innerText[result.innerText.length - 1] == '.') {
+        point.setAttribute('disabled', '');
+      }
+      
+      if (result.innerText[result.innerText.length - 1] == '0' && result.innerText[result.innerText.length - 2] == '+') {
+        nzero.setAttribute('disabled', '');
+      }
+      else if (result.innerText[result.innerText.length - 1] == '0' && result.innerText[result.innerText.length - 2] == '-') {
+        nzero.setAttribute('disabled', '');
+      }
+      else if (result.innerText[result.innerText.length - 1] == '0' && result.innerText[result.innerText.length - 2] == '*') {
+        nzero.setAttribute('disabled', '');
+      }
+      else if (result.innerText[result.innerText.length - 1] == '0' && result.innerText[result.innerText.length - 2] == '/') {
+        nzero.setAttribute('disabled', '');
+      }
+      
+      else {
+        if (result.innerText[result.innerText.length - 1] != '/') {
+          nzero.removeAttribute('disabled')
+          
+        }
+      }
+      
+    })
+    
+  })
+  
+  
+  var naturalnum = [n1, n2, n3, n4, n5, n6, n7, n8, n9]
+  
+  naturalnum.forEach((k) => {
+    k.addEventListener('click', () => {
+      
+      for (let a = 'x'; result.innerText[result.innerText.length - 2] == '0' && result.innerText[result.innerText.length - 3] == '+'; a = '1') {
+        result.innerText = result.innerText.slice(0, -2) + k.innerText;
+      }
+      for (let a = 'x'; result.innerText[result.innerText.length - 2] == '0' && result.innerText[result.innerText.length - 3] == '-'; a = '1') {
+        result.innerText = result.innerText.slice(0, -2) + k.innerText;
+      }
+      for (let a = 'x'; result.innerText[result.innerText.length - 2] == '0' && result.innerText[result.innerText.length - 3] == '*'; a = '1') {
+        result.innerText = result.innerText.slice(0, -2) + k.innerText;
+      }
+      for (let a = 'x'; result.innerText[result.innerText.length - 2] == '0' && result.innerText[result.innerText.length - 3] == '/'; a = '1') {
+        result.innerText = result.innerText.slice(0, -2) + k.innerText;
+      }
+    })
+  })
+  
+  // Zero problem 
+  
+  
+  
+  
+  
+  equal.addEventListener('click', () => {
+    live_re.style = 'color:red;font-size: 28px'
+    
+  })
+  
+  
+  
+  
+  
+  
+  // result problem
+  
+  var div = document.getElementById('results')
+  var input = document.getElementById('result')
+  
+  allbuttons.forEach((k) => {
+    
+    k.addEventListener('click', () => {
+      
+      
+      results.innerHTML = ''
+      
+      var arr = Array.from(input.innerText)
+      var newarr = [];
+      for (let k = 0; k < arr.length; k++) {
+        var sec = document.createElement('section');
+        sec.innerText = arr[k];
+        newarr.push(sec)
+      }
+      var main;
+      for (let i = 0; i < newarr.length; i = i + 17) {
+        main = document.createElement('main')
+        results.appendChild(main)
+      }
+      var resultschild = Array.from(results.children)
+      
+      for (let y = 0; y < resultschild.length + 9; y++) {
+        for (let i = 0; i < 17; i++) {
+          resultschild[resultschild.length - 1].appendChild(newarr[newarr.length - 1])
+          newarr = newarr.slice(0, newarr.length - 1)
+          if (newarr.length == 0) {
+            break
+          }
+        }
+        
+        if (newarr.length == 0) {
+          break
+        }
+        
+        resultschild = resultschild.slice(0, resultschild.length - 1)
+      }
+      
+    })
+  })
+</script>
+
+</html>
